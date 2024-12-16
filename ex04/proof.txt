@@ -1,0 +1,31 @@
+root [ ~ ]# cd lp/ex04
+root [ ~/lp/ex04 ]# make modules_install
+make -C /lib/modules/6.13.0-thor_kernel-imarushe-g267549b8ce58/build M=/root/lp/ex04 modules
+make[1]: Entering directory '/sources/linux'
+make[2]: Entering directory '/root/lp/ex04'
+  CC [M]  usb_kbd.o
+  MODPOST Module.symvers
+  CC [M]  usb_kbd.mod.o
+  CC [M]  .module-common.o
+  LD [M]  usb_kbd.ko
+make[2]: Leaving directory '/root/lp/ex04'
+make[1]: Leaving directory '/sources/linux'
+make -C /lib/modules/6.13.0-thor_kernel-imarushe-g267549b8ce58/build M=/root/lp/ex04 modules_install
+make[1]: Entering directory '/sources/linux'
+make[2]: Entering directory '/root/lp/ex04'
+  INSTALL /lib/modules/6.13.0-thor_kernel-imarushe-g267549b8ce58/updates/usb_kbd.ko
+  DEPMOD  /lib/modules/6.13.0-thor_kernel-imarushe-g267549b8ce58
+make[2]: Leaving directory '/root/lp/ex04'
+make[1]: Leaving directory '/sources/linux'
+cp usb_kbd.ko /lib/modules/6.13.0-thor_kernel-imarushe-g267549b8ce58/extra
+cp 80-usb-kbd.rules /etc/udev/rules.d/80-usb-kbd.rules
+depmod -a
+root [ ~/lp/ex04 ]# dmesg | tail -1
+[   52.194632] Little Penguin USB keyboard removed.
+root [ ~/lp/ex04 ]# dmesg | tail -1
+[   67.159289] Little Penguin USB keyboard detected.
+root [ ~/lp/ex04 ]# dmesg | tail -1
+[   72.588483] Little Penguin USB keyboard removed.
+root [ ~/lp/ex04 ]# dmesg | tail -1
+[   80.330494] Little Penguin USB keyboard detected.
+root [ ~/lp/ex04 ]#

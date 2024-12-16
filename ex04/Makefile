@@ -17,7 +17,6 @@ modules_install: all
 clean:
 	make -C $(KDIR) M=$(PWD) clean
 	rm -f /etc/udev/rules.d/80-usb-kbd.rules
-	rmmod usb_kbd
 
 reload:
 	udevadm control --reload-rules
