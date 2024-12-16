@@ -1,0 +1,6 @@
+# /etc/udev/rules.d/80-usb_kbd.rules
+
+#SUBSYSTEM=="usb", ACTION=="add",  ATTR{bInterfaceClass}=="03", ATTR{bInterfaceProtocol}=="01", RUN+="/usr/sbin/insmod /root/lp/ex04/usb_kbd.ko"
+
+ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", RUN+="/usr/sbin/modprobe usb_kbd"
+ACTION=="remove", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", RUN="/usr/sbin/modprobe --remove usb_kbd"
