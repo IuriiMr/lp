@@ -2,6 +2,9 @@
 #include <linux/printk.h> /* Needed for pr_info() */ 
 #include <linux/init.h> /* Needed for the macros */ 
 
+MODULE_VERSION("1.0.0");
+MODULE_LICENSE("GPL");
+
 int init_hello(void);
 void cleanup_hello(void);
 
@@ -19,4 +22,3 @@ void cleanup_hello(void)
 module_init(init_hello);
 module_exit(cleanup_hello);
 
-MODULE_LICENSE("GPL");
