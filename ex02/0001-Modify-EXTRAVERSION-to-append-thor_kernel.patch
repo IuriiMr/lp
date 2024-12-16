@@ -1,0 +1,25 @@
+From 1459711d83047663e86a3eae4178c6e5c65bc6a6 Mon Sep 17 00:00:00 2001
+From: Iurii Marushevskyi <imarushe@student.42.fr>
+Date: Mon, 16 Dec 2024 13:40:56 +0100
+Subject: [PATCH] Modify EXTRAVERSION to append -thor_kernel
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 64c594bd7ad0..e1b693ee442f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 6
+ PATCHLEVEL = 13
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc2
++EXTRAVERSION = -thor_kernel
+ NAME = Baby Opossum Posse
+ 
+ # *DOCUMENTATION*
+-- 
+2.46.0
+
