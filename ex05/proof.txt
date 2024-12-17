@@ -1,0 +1,30 @@
+root [ ~/lp/ex05 ]# make
+make -C /lib/modules/6.13.0-thor_kernel-imarushe-g267549b8ce58/build M=/root/lp/ex05 modules
+make[1]: Entering directory '/sources/linux'
+make[2]: Entering directory '/root/lp/ex05'
+  CC [M]  fortytwo.o
+  MODPOST Module.symvers
+  CC [M]  fortytwo.mod.o
+  CC [M]  .module-common.o
+  LD [M]  fortytwo.ko
+make[2]: Leaving directory '/root/lp/ex05'
+make[1]: Leaving directory '/sources/linux'
+root [ ~/lp/ex05 ]# insmod fortytwo.ko
+root [ ~/lp/ex05 ]# cat /dev/fortytwo
+imarusheroot [ ~/lp/ex05 ]#
+root [ ~/lp/ex05 ]# echo -n "imarushe" > /dev/fortytwo
+root [ ~/lp/ex05 ]# echo -n "wrong_imarushe" > /dev/fortytwo
+-su: echo: write error: Invalid argument
+root [ ~/lp/ex05 ]# ls -l /dev/fortytwo
+crw-rw-rw- 1 root root 10, 125 Dec 17 09:30 /dev/fortytwo
+root [ ~/lp/ex05 ]# rmmod fortytwo
+root [ ~/lp/ex05 ]# make clean
+make -C /lib/modules/6.13.0-thor_kernel-imarushe-g267549b8ce58/build M=/root/lp/ex05 clean
+make[1]: Entering directory '/sources/linux'
+make[2]: Entering directory '/root/lp/ex05'
+  CLEAN   Module.symvers
+make[2]: Leaving directory '/root/lp/ex05'
+make[1]: Leaving directory '/sources/linux'
+root [ ~/lp/ex05 ]# ls -l /dev/fortytwo
+ls: cannot access '/dev/fortytwo': No such file or directory
+root [ ~/lp/ex05 ]#

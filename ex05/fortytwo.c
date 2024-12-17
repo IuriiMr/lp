@@ -7,9 +7,6 @@
 #define DEVICE_NAME "fortytwo"
 #define LOGIN "imarushe"
 
-static char stored_data[PAGE_SIZE];  // Buffer for the written data
-
-/* Read function: Returns the student login */
 static ssize_t fortytwo_read(struct file *file, char __user *buf, size_t len, loff_t *offset) {
     size_t login_len = strlen(LOGIN);
 
@@ -93,6 +90,6 @@ module_init(fortytwo_init);
 module_exit(fortytwo_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
-MODULE_DESCRIPTION("A misc char device that checks student login");
+MODULE_AUTHOR("Iurii Marushevskyi");
+MODULE_DESCRIPTION("A misc char device fortytwo that checks student login");
 
