@@ -1,0 +1,40 @@
+# Key Fixes & Explanations
+
+## License Declaration:
+- Replaced `MODULE_LICENSE("LICENSE");` with `MODULE_LICENSE("GPL");`, which is valid and required for modules to load properly.
+
+## Read Function (`myfd_read`):
+- Used a temporary buffer of size `len + 1` instead of `PAGE_SIZE * 2`.
+- Added error checking for `kmalloc` and ensured proper deallocation.
+- Fixed the loop condition to avoid underflow when `t--`.
+
+## Write Function (`myfd_write`):
+- Prevented out-of-bounds writes by ensuring `size < PAGE_SIZE`.
+- Used `str[size] = '\0';` instead of `str[size + 1] = '\0';`.
+
+## `misc_register` Simplification:
+- Replaced `misc_register(&(*(&(myfd_device))))` with `misc_register(&myfd_device)`.
+
+## Initialization and Cleanup:
+- Properly handled registration errors in `myfd_init()`.
+- Unregistered the device in `myfd_cleanup()`.
+
+## Style Improvements:
+- Followed Linux kernel indentation (8 spaces or a tab per level).
+- Broke long lines (>80 characters) into multiple lines.
+- Grouped related code logically with meaningful comments.
+
+# Behavior
+
+## Read Operation:
+- Reading from `/dev/reverse` returns the reversed string written by the user.
+- EOF is reached when `offs` exceeds the string length.
+
+## Write Operation:
+- Writing a string to `/dev/reverse` stores it in the kernel buffer.
+- Strings longer than `PAGE_SIZE` are rejected.
+
+## Device Node:
+- When loaded, the device appears as `/dev/reverse`.
+- Accessible using `cat`, `echo`, and other standard tools.
+
