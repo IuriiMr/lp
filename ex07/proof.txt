@@ -1,0 +1,40 @@
+root [ ~/lp/ex07 ]# mount -t debugfs none /sys/kernel/debug
+root [ ~/lp/ex07 ]# make
+make -C /lib/modules/6.13.0-rc3-next-20241217/build M=/root/lp/ex07 modules
+make[1]: Entering directory '/sources/linux-next'
+make[2]: Entering directory '/root/lp/ex07'
+  CC [M]  fortytwo.o
+  MODPOST Module.symvers
+  CC [M]  fortytwo.mod.o
+  CC [M]  .module-common.o
+  LD [M]  fortytwo.ko
+make[2]: Leaving directory '/root/lp/ex07'
+make[1]: Leaving directory '/sources/linux-next'
+root [ ~/lp/ex07 ]# insmod fortytwo.ko
+root [ ~/lp/ex07 ]# ls /sys/kernel/debug/fortytwo/
+foo  id  jiffies
+root [ ~/lp/ex07 ]# chmod a+rx /sys/kernel/debug/fortytwo/
+root [ ~/lp/ex07 ]# echo -n "imarushe" > /sys/kernel/debug/fortytwo/id
+root [ ~/lp/ex07 ]# echo -n "wrong_imarushe" > /sys/kernel/debug/fortytwo/id
+bash: echo: write error: Invalid argument
+root [ ~/lp/ex07 ]# cat /sys/kernel/debug/fortytwo/id
+imarusheroot [ ~/lp/ex07 ]#
+root [ ~/lp/ex07 ]# cat /sys/kernel/debug/fortytwo/jiffies
+4299860608
+root [ ~/lp/ex07 ]# cat /sys/kernel/debug/fortytwo/foo
+root [ ~/lp/ex07 ]# echo -n "info_from_root" > /sys/kernel/debug/fortytwo/foo
+root [ ~/lp/ex07 ]# cat /sys/kernel/debug/fortytwo/foo
+info_from_rootroot [ ~/lp/ex07 ]#
+root [ ~/lp/ex07 ]# su - imarushe
+imarushe [ ~ ]$ cat /sys/kernel/debug/fortytwo/foo
+info_from_rootimarushe [ ~ ]$
+imarushe [ ~ ]$ echo -n "info_from_user" > /sys/kernel/debug/fortytwo/foo
+-su: /sys/kernel/debug/fortytwo/foo: Permission denied
+imarushe [ ~ ]$ cat /sys/kernel/debug/fortytwo/foo
+info_from_rootimarushe [ ~ ]$ su - root
+Password:
+root [ ~ ]# rmmod fortytwo.ko
+root [ ~ ]# ls /sys/kernel/debug/
+acpi  block	      clear_warn_once	devices_deferred  dmaengine  extfrag		 hid  ieee80211  mce			regmap	sleep_time  suspend_stats  tracing  virtio-ports    x86
+bdi   check_wx_pages  device_component	dma_buf		  dri	     fault_around_bytes  i2c  kprobes	 multigrain_timestamps	slab	stackdepot  swiotlb	   usb	    wakeup_sources
+root [ ~ ]#
