@@ -1,0 +1,31 @@
+root [ ~/lp/ex09 ]# make
+make -C /lib/modules/6.13.0-rc3-next-20241217/build M=/root/lp/ex09 modules
+make[1]: Entering directory '/sources/linux-next'
+make[2]: Entering directory '/root/lp/ex09'
+make[2]: Leaving directory '/root/lp/ex09'
+make[1]: Leaving directory '/sources/linux-next'
+root [ ~/lp/ex09 ]# insmod mymounts.ko
+root [ ~/lp/ex09 ]# mount -l
+/dev/sda4 on / type ext4 (rw,relatime)
+devtmpfs on /dev type devtmpfs (rw,relatime,size=4069316k,nr_inodes=1017329,mode=755)
+tmpfs on /run type tmpfs (rw,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,relatime)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime)
+/dev/sda2 on /boot type ext4 (rw,relatime)
+devpts on /dev/pts type devpts (rw,relatime,gid=5,mode=620,ptmxmode=000)
+root [ ~/lp/ex09 ]# cat /proc/mymounts
+/dev/root  /
+devtmpfs   /dev
+tmpfs      /run
+proc       /proc
+sysfs      /sys
+tmpfs      /dev/shm
+cgroup2    /sys/fs/cgroup
+/dev/sda2  /boot
+devpts     /dev/pts
+root [ ~/lp/ex09 ]# rmmod mymounts.ko
+root [ ~/lp/ex09 ]# cat /proc/mymounts
+cat: /proc/mymounts: No such file or directory
+root [ ~/lp/ex09 ]#
