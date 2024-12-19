@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-2.0
+
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/init.h>
@@ -14,8 +16,10 @@ MODULE_DESCRIPTION("Misc char device driver that reverses input string.");
 static char str[PAGE_SIZE];
 
 /* Forward declarations for file operations */
-static ssize_t myfd_read(struct file *fp, char __user *user, size_t size, loff_t *offs);
-static ssize_t myfd_write(struct file *fp, const char __user *user, size_t size, loff_t *offs);
+static ssize_t myfd_read(struct file *fp,
+			 char __user *user, size_t size, loff_t *offs);
+static ssize_t myfd_write(struct file *fp,
+			  const char __user *user, size_t size, loff_t *offs);
 
 /* File operations for the misc device */
 static const struct file_operations myfd_fops = {
@@ -54,7 +58,8 @@ static void __exit myfd_cleanup(void)
 }
 
 /* Read function */
-static ssize_t myfd_read(struct file *fp, char __user *user, size_t size, loff_t *offs)
+static ssize_t myfd_read(struct file *fp,
+			 char __user *user, size_t size, loff_t *offs)
 {
 	size_t i, t, len;
 	char *tmp;
@@ -86,7 +91,8 @@ static ssize_t myfd_read(struct file *fp, char __user *user, size_t size, loff_t
 }
 
 /* Write function */
-static ssize_t myfd_write(struct file *fp, const char __user *user, size_t size, loff_t *offs)
+static ssize_t myfd_write(struct file *fp,
+			  const char __user *user, size_t size, loff_t *offs)
 {
 	if (size >= PAGE_SIZE)
 		return -EINVAL; /* Input too large */
